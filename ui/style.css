@@ -15,7 +15,7 @@ body {
 .counter-box {
     display: block;
     background: #f6f6f6;
-    padding: 40px 50px 37px;
+    padding: 40px 50px 27px;
     text-align: center
 }
 
@@ -35,7 +35,7 @@ body {
 
 .counter {
     display: block;
-    font-size: 32px;
+    font-size: 26px;
     font-weight: 700;
     color: #666;
     line-height: 28px
@@ -49,4 +49,12 @@ body {
 .counter-box.colored i,
 .counter-box.colored .counter {
     color: #fff
+}
+
+.show-end-text {
+    white-space: nowrap;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    direction: rtl;
 }
