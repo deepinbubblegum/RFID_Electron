@@ -5,13 +5,13 @@ var servicesWorker = null;
 
 function createWindow() {
   const win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1270,
+    height: 720,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
     },
   });
-  win.webContents.openDevTools();
+  // win.webContents.openDevTools();
   win.loadFile("ui/index.html");
 }
 
