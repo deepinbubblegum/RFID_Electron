@@ -1,0 +1,17 @@
+{
+  "name": "rfid_electron",
+  "version": "1.0.0",
+  "description": "UHF RFID demo",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Chaiwit Phonkhen",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^22.0.0"
+  },
+  "dependencies": {
+    "request-promise": "*"
+  }
+}
