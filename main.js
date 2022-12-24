@@ -17,6 +17,14 @@ function createWindow() {
 
 app.whenReady().then(() => {
   servicesWorker = require('child_process').spawn('python', ['./services/services.py']);
+  // show output from services.py
+  servicesWorker.stdout.on('data', function (data) {
+    console.log("data: ", data.toString('utf8'));
+  });
+  servicesWorker.stderr.on('data', (data) => {
+    console.log(`stderr: ${data}`); // when error
+  });
+
   createWindow();
 
   app.on("activate", () => {
@@ -32,5 +40,6 @@ app.on("window-all-closed", () => {
   }
   
   console.log("stopping services");
+  // kill services.py
   servicesWorker.kill('SIGINT');
 });

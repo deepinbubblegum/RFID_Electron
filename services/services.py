@@ -3,8 +3,10 @@ import time
 import threading
 import string
 import sqlite3
-from flask import Flask
+from flask import Flask, jsonify
+from flask_cors import CORS
 from gevent.pywsgi import WSGIServer
+import json
 
 from datetime import datetime, timedelta
 from chafon_rfid.base import CommandRunner, ReaderCommand, ReaderInfoFrame, ReaderResponseFrame, ReaderType
@@ -19,6 +21,7 @@ from chafon_rfid.uhfreader18 import G2InventoryResponseFrame as G2InventoryRespo
 from chafon_rfid.uhfreader288m import G2InventoryCommand, G2InventoryResponseFrame
 
 app = Flask(__name__)
+CORS(app)
 
 valid_chars = string.digits + string.ascii_letters
 
@@ -59,8 +62,16 @@ def get_reader_type(runner):
     return reader_info.type
 
 def read_tags():
-    transport = SerialTransport(device="COM6")
-    runner = CommandRunner(transport)
+    tryConnect = True
+    while tryConnect:
+        try:
+            transport = SerialTransport(device="COM6")
+            runner = CommandRunner(transport)
+            tryConnect = False
+        except:
+            # print("Failed to connect to reader")
+            time.sleep(1)
+            tryConnect = True
     
     try:
         reader_type = get_reader_type(runner)
@@ -122,7 +133,7 @@ def read_tags():
                         rssi_values[tag_id].append(tag.rssi)
                     # print(f'{tag.epc.hex()} {tag.rssi}')  # print tag id and rssi
                     # cursor.execute("INSERT INTO tag (tag_id, rssi, time) VALUES (%s, %s, %s)", (tag_id, tag.rssi, now))
-                    conn = sqlite3.connect('db/rfid_database.db')
+                    conn = sqlite3.connect('services/db/rfid_database.db')
                     cursor = conn.cursor()
                     # timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                     # timestamp = timestamp + datetime.timedelta(0,3)
@@ -144,11 +155,22 @@ def read_tags():
         
 @app.route("/")
 def index():
-    return {"status": "ok", "message": "Hello World! This is powered by Python backend."}
+    return {"status": "ok", "message": "Service is running."}
 
 @app.route("/tags")
 def gettags():
-    return {"status": "ok", "message": "Hello World! This is powered by Python backend."}
+    conn = sqlite3.connect('services/db/rfid_database.db')
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM main.EPC")
+    columns = cursor.description 
+    result = json.dumps([{columns[index][0]:column for index, column in enumerate(value)} for value in cursor.fetchall()])
+    conn.close()
+    response = app.response_class(
+        response=result,
+        status=200,
+        mimetype='application/json'
+    )
+    return response
 
 def start_read_tags():
     t = threading.Thread(target=read_tags, daemon=True, name='read_tags')
@@ -156,6 +178,6 @@ def start_read_tags():
     
 if __name__ == "__main__":
     start_read_tags()
-    # app.run(host='0.0.0.0', port=5000, debug=False)
-    http_server = WSGIServer(("0.0.0.0", 8000), app)
+    # app.run(host='0.0.0.0', port=8011)
+    http_server = WSGIServer(("127.0.0.1", 8011), app)
     http_server.serve_forever()
