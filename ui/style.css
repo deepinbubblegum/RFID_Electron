@@ -16,7 +16,10 @@ body {
     display: block;
     background: #f6f6f6;
     padding: 40px 50px 27px;
-    text-align: center
+    text-align: center;
+    border-radius: 4px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
 }
 
 .counter-box p {
@@ -35,7 +38,7 @@ body {
 
 .counter {
     display: block;
-    font-size: 26px;
+    font-size: 25px;
     font-weight: 700;
     color: #666;
     line-height: 28px
@@ -57,4 +60,15 @@ body {
     overflow: hidden;
     text-overflow: ellipsis; 
     direction: rtl;
+}
+
+.hide-end-text {
+    white-space: nowrap;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
+.mb-20{
+    margin-bottom: 50px;
 }
