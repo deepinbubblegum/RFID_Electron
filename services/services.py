@@ -140,15 +140,15 @@ def read_tags():
             running = False
         end = time.time()
         response_times.append(end - start)
-        print("elapsed time %.2f" % (end - start))
+        # print("elapsed time %.2f" % (end - start))
         
 @app.route("/")
 def index():
-    return "Hello World! This is powered by Python backend."
+    return {"status": "ok", "message": "Hello World! This is powered by Python backend."}
 
-@app.route("/gettags")
+@app.route("/tags")
 def gettags():
-    return "Hello World! This is powered by Python backend."
+    return {"status": "ok", "message": "Hello World! This is powered by Python backend."}
 
 def start_read_tags():
     t = threading.Thread(target=read_tags, daemon=True, name='read_tags')
@@ -157,5 +157,5 @@ def start_read_tags():
 if __name__ == "__main__":
     start_read_tags()
     # app.run(host='0.0.0.0', port=5000, debug=False)
-    http_server = WSGIServer(("0.0.0.0", 8080), app)
+    http_server = WSGIServer(("0.0.0.0", 8000), app)
     http_server.serve_forever()

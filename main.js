@@ -11,8 +11,8 @@ function createWindow() {
       preload: path.join(__dirname, "preload.js"),
     },
   });
-
-  win.loadFile("ui/main.html");
+  win.webContents.openDevTools();
+  win.loadFile("ui/index.html");
 }
 
 app.whenReady().then(() => {
