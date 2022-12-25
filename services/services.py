@@ -140,7 +140,8 @@ def read_tags():
                     now = datetime.now()
                     result = now + timedelta(seconds=3)
                     timestamp = f'{result:%Y-%m-%d %H:%M:%S}'
-                    cursor.execute("INSERT OR REPLACE INTO main.EPC (EPC, RSSI, Timestamp) VALUES (?, ?, ?)", (tag_id, tag.rssi, timestamp))
+                    
+                    cursor.execute("INSERT OR REPLACE INTO main.EPC (EPC, RSSI, Timestamp, Name) VALUES (?, ?, ?, SELECT Name FROM main.EPC WHERE Name = ?)", (tag_id, tag.rssi, timestamp, tag_id))
                     conn.commit()
                     conn.close()
         except KeyboardInterrupt:
