@@ -161,7 +161,7 @@ def index():
 def gettags():
     conn = sqlite3.connect('services/db/rfid_database.db')
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM main.EPC WHERE Timestamp > datetime('now','localtime')")
+    cursor.execute("SELECT * FROM main.EPC WHERE Timestamp > datetime('now','localtime') ORDER BY Timestamp DESC")
     columns = cursor.description 
     result = json.dumps([{columns[index][0]:column for index, column in enumerate(value)} for value in cursor.fetchall()])
     conn.close()

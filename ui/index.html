@@ -14,25 +14,28 @@
     <script src="script.js"></script>
 </head>
 <body>
+    <div class="setting-btn">
+      <a href="#" class=""><i class="fa-solid fa-gear fa-2xl "></i></a>
+    </div>
     <div class="container-fluid container-top">
         <div class="row">
             <div class="four col-md-3">
-                <div class="counter-box "><i class="fa-brands fa-nfc-symbol"></i> <span class="counter show-end-text">e200001d530c017519801111</span>
+                <div class="counter-box "><i class="fa-brands fa-nfc-symbol"></i> <span class="counter show-end-text" id="epc_box">...</span>
                     <p>EPC Value</p>
                 </div>
             </div>
             <div class="four col-md-3">
-                <div class="counter-box"> <i class="fa fa-shopping-cart"></i> <span class="counter hide-end-text">ผ้าขนาด70*140</span>
+                <div class="counter-box"> <i class="fa fa-shopping-cart"></i> <span class="counter hide-end-text" id="last_item">...</span>
                     <p>Latest Item</p>
                 </div>
             </div>
             <div class="four col-md-3">
-                <div class="counter-box"> <i class="fa-solid fa-rss"></i> <span class="counter">289</span>
+                <div class="counter-box"> <i class="fa-solid fa-rss"></i> <span class="counter" id="rssi_dBm">..</span>
                     <p>RSSI (dBm)</p>
                 </div>
             </div>
             <div class="four col-md-3">
-                <div class="counter-box"> <i class="fa-solid fa-hashtag"></i> <span class="counter">1563</span>
+                <div class="counter-box"> <i class="fa-solid fa-hashtag"></i> <span class="counter" id="total_box">..</span>
                     <p>Current Total</p>
                 </div>
             </div>
@@ -43,41 +46,12 @@
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
+                    <th scope="col">EPC</th>
+                    <th scope="col">Item Name</th>
+                    <th scope="col">RSSI</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                  </tr>
-
+                <tbody id="table_body">
                 </tbody>
               </table>
         </div>
