@@ -3,3 +3,4 @@ gevent
 db-sqlite3
 pyserial
 flask_cors
+WSGIserver
